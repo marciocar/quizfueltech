@@ -1,4 +1,4 @@
-import { Trophy, RotateCcw } from 'lucide-react';
+import { Trophy, RotateCcw, Zap, Award } from 'lucide-react';
 
 interface ResultScreenProps {
   score: number;
@@ -15,76 +15,125 @@ export default function ResultScreen({
   const percentage = (score / maxScore) * 100;
 
   let message = '';
-  let emoji = '';
+  let status = '';
 
   if (percentage >= 80) {
-    message = 'Incrível! Você é um expert!';
-    emoji = '🏆';
+    message = 'Performance Excepcional';
+    status = 'EXPERT';
   } else if (percentage >= 60) {
-    message = 'Muito bem! Bom conhecimento!';
-    emoji = '🌟';
+    message = 'Ótimo Desempenho';
+    status = 'AVANÇADO';
   } else if (percentage >= 40) {
-    message = 'Bom trabalho! Continue praticando!';
-    emoji = '👍';
+    message = 'Bom Resultado';
+    status = 'INTERMEDIÁRIO';
   } else {
-    message = 'Continue estudando!';
-    emoji = '📚';
+    message = 'Continue Treinando';
+    status = 'INICIANTE';
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#46178F] via-[#5a2ca0] to-[#6e41b1] flex items-center justify-center p-4">
-      <div className="max-w-2xl w-full">
-        <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 text-center">
-          <div className="mb-8">
-            <div className="w-32 h-32 mx-auto bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-2xl mb-6 animate-bounce">
-              <Trophy className="w-16 h-16 text-white" />
+    <div className="min-h-screen bg-black flex items-center justify-center p-4 relative overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 via-transparent to-red-600/5"></div>
+
+      <div className="absolute top-0 right-0 w-96 h-96 bg-red-600/10 blur-3xl rounded-full animate-pulse"></div>
+      <div className="absolute bottom-0 left-0 w-96 h-96 bg-red-600/10 blur-3xl rounded-full animate-pulse"></div>
+
+      <div className="relative z-10 max-w-4xl w-full">
+        <div className="relative">
+          <div className="absolute -inset-1 bg-gradient-to-r from-red-600/20 via-red-600/40 to-red-600/20 blur-2xl"></div>
+
+          <div className="relative bg-gradient-to-br from-gray-900 via-black to-gray-900 border-2 border-red-600/40 p-8 md:p-12">
+            <div className="absolute top-0 left-0 w-24 h-24 border-t-4 border-l-4 border-red-600"></div>
+            <div className="absolute top-0 right-0 w-24 h-24 border-t-4 border-r-4 border-red-600"></div>
+            <div className="absolute bottom-0 left-0 w-24 h-24 border-b-4 border-l-4 border-red-600"></div>
+            <div className="absolute bottom-0 right-0 w-24 h-24 border-b-4 border-r-4 border-red-600"></div>
+
+            <div className="text-center">
+              <div className="mb-8">
+                <div className="relative inline-block mb-6">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-red-600 to-red-700 opacity-75 blur-2xl animate-pulse"></div>
+                  <div className="relative w-32 h-32 mx-auto bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center shadow-2xl transform -skew-x-6">
+                    <Trophy className="w-16 h-16 text-white" />
+                  </div>
+                </div>
+
+                <div className="mb-6">
+                  <div className="inline-block bg-gradient-to-r from-red-600 to-red-700 px-8 py-2 transform -skew-x-6 mb-4">
+                    <div className="transform skew-x-6 text-white text-sm font-black uppercase tracking-widest">
+                      {status}
+                    </div>
+                  </div>
+                </div>
+
+                <h1 className="text-4xl md:text-5xl font-black text-white mb-3 uppercase tracking-tight">
+                  Quiz Finalizado
+                </h1>
+
+                <p className="text-xl md:text-2xl text-gray-300 font-bold uppercase tracking-wide">
+                  {message}
+                </p>
+              </div>
+
+              <div className="relative mb-8 group">
+                <div className="absolute -inset-1 bg-gradient-to-r from-red-600/50 to-red-700/50 blur-xl group-hover:blur-2xl transition-all"></div>
+                <div className="relative bg-gradient-to-r from-red-600 to-red-700 p-8 md:p-10 transform -skew-x-3 border-2 border-red-500">
+                  <div className="transform skew-x-3">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Zap className="w-8 h-8 text-white" fill="currentColor" />
+                      <div className="text-6xl md:text-7xl font-black text-white">
+                        {score.toLocaleString()}
+                      </div>
+                      <Zap className="w-8 h-8 text-white" fill="currentColor" />
+                    </div>
+                    <div className="text-xl md:text-2xl text-red-100 font-black uppercase tracking-wider">
+                      Pontos
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4 mb-10">
+                <div className="bg-gradient-to-br from-gray-900 to-black border border-red-600/30 p-6 transform -skew-x-3 hover:border-red-600/60 transition-all">
+                  <div className="transform skew-x-3">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Award className="w-6 h-6 text-red-600" />
+                      <div className="text-4xl font-black text-white">
+                        {percentage.toFixed(0)}%
+                      </div>
+                    </div>
+                    <div className="text-gray-400 font-bold uppercase text-sm tracking-wider">
+                      Aproveitamento
+                    </div>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-br from-gray-900 to-black border border-red-600/30 p-6 transform -skew-x-3 hover:border-red-600/60 transition-all">
+                  <div className="transform skew-x-3">
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <Trophy className="w-6 h-6 text-red-600" />
+                      <div className="text-4xl font-black text-white">
+                        {totalQuestions}
+                      </div>
+                    </div>
+                    <div className="text-gray-400 font-bold uppercase text-sm tracking-wider">
+                      Perguntas
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={onRestart}
+                className="group relative bg-gradient-to-r from-red-600 to-red-700 text-white px-12 py-5 text-xl font-black uppercase hover:scale-105 transition-all duration-200 shadow-2xl hover:shadow-red-600/50 transform -skew-x-6 overflow-hidden mx-auto inline-block"
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-red-700 to-red-800 translate-x-full group-hover:translate-x-0 transition-transform duration-300"></div>
+                <span className="relative flex items-center gap-3 justify-center transform skew-x-6">
+                  <RotateCcw className="w-6 h-6" />
+                  Jogar Novamente
+                </span>
+              </button>
             </div>
-
-            <h1 className="text-4xl md:text-5xl font-black text-gray-900 mb-4">
-              Quiz Finalizado!
-            </h1>
-
-            <p className="text-2xl md:text-3xl text-gray-700 font-bold mb-2">
-              {message} {emoji}
-            </p>
           </div>
-
-          <div className="bg-gradient-to-r from-[#46178F] to-[#6e41b1] rounded-2xl p-8 mb-8">
-            <div className="text-6xl md:text-7xl font-black text-white mb-2">
-              {score.toLocaleString()}
-            </div>
-            <div className="text-xl md:text-2xl text-purple-100 font-semibold">
-              pontos
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mb-8">
-            <div className="bg-gray-50 rounded-xl p-4">
-              <div className="text-3xl font-bold text-gray-900">
-                {percentage.toFixed(0)}%
-              </div>
-              <div className="text-sm text-gray-600 font-medium">
-                Aproveitamento
-              </div>
-            </div>
-
-            <div className="bg-gray-50 rounded-xl p-4">
-              <div className="text-3xl font-bold text-gray-900">
-                {totalQuestions}
-              </div>
-              <div className="text-sm text-gray-600 font-medium">
-                Perguntas
-              </div>
-            </div>
-          </div>
-
-          <button
-            onClick={onRestart}
-            className="bg-gradient-to-r from-[#46178F] to-[#6e41b1] text-white px-10 py-4 rounded-full text-xl font-bold hover:scale-110 transition-transform duration-200 shadow-xl hover:shadow-purple-500/50 flex items-center gap-3 mx-auto"
-          >
-            <RotateCcw className="w-6 h-6" />
-            Jogar Novamente
-          </button>
         </div>
       </div>
     </div>
